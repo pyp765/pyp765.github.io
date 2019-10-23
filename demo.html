@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .map {
+            width: 800px;
+            height: 600px;
+            position: relative;
+            top: 0;
+            left: 50%;
+            margin-left: -300px;
+        }
+
+        .map2 {
+            width: 400px;
+            height: 300px;
+            position: relative;
+            top: 50px;
+            left: 30%;
+            display: none;
+        }
+
+        .start {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: 40px;
+            font-size: 60px;
+            cursor: pointer;
+            z-index: 3;
+        }
+
+        .stop {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: 30px;
+            font-size: 60px;
+            cursor: pointer;
+            display: none;
+            z-index: 3;
+        }
+
+        .scoreBox,
+        .rank {
+            width: 200px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -500px;
+            text-align: center;
+            font-size: 40px;
+        }
+
+        span {
+            font-size: 30px;
+        }
+
+        .rank {
+            width: 400px;
+            height: 455px;
+            top: 95px;
+            font-size: 30px;
+            margin-left: -700px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 400px;
+        }
+
+        .endBox {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            z-index: 5;
+            display: none;
+        }
+
+        .box {
+            width: 600px;
+            height: 400px;
+            background-color: #fff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin: -200px 0 0 -300px;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        .box:nth-child(1) p {
+            margin-top: 20px;
+        }
+
+        .box input {
+            width: 300px;
+            outline: none;
+            text-indent: 5px;
+            font-size: 40px;
+            margin-bottom: 40px;
+        }
+
+        .box i {
+            color: #fff;
+            font-style: normal;
+            background-color: #000;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .colorSelect {
+            width: 300px;
+            height: 50px;
+            position: absolute;
+            top: 550px;
+            left: 50%;
+            margin-left: -600px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .colorSelect i {
+            width: 50px;
+            height: 50px;
+            font-style: normal;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="map" id="map" style="background-color: chartreuse;"></div>
+    <div class="map2" id="map2" style="background-color: red;"></div>
+    <span class="start" id="start">开始</span>
+    <span class="stop" id="stop">暂停中...</span>
+    <div class="scoreBox">
+        <p>成绩</p>
+        <span id="score1">0</span>
+    </div>
+    <div class="endBox" id="endBox">
+        <div class="box">
+            <div>
+                <p>你的成绩是</p>
+                <span id="score2">0</span>
+                <p>请留下你的大名</p>
+                <input type="text" id="username" placeholder="不配留下姓名">
+            </div>
+            <div>
+                <i id="rem">好哟</i>
+                <i id="norem">懒得</i>
+            </div>
+        </div>
+    </div>
+    <div class="rank">
+        <table>
+            <thead>
+                <tr>
+                    <th>昵称</th>
+                    <th>成绩</th>
+                </tr>
+            </thead>
+            <tbody id="rank">
+                <tr>
+                    <td>
+                        <p class="rankName">PYP右手玩的</p>
+                    </td>
+                    <td class="rankScore">10000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="rankName">PYP左手玩的</p>
+                    </td>
+                    <td class="rankScore">1000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="rankName">PYP用脚玩的</p>
+                    </td>
+                    <td class="rankScore">500</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="colorSelect" id="colorSelect">
+        <i class="tomato" id="colorTomato" style="background-color: tomato;"></i>
+        <i class="skyblue" id="colorSkyblue" style="background-color: skyblue;"></i>
+        <i class="gold" id="colorGold" style="background-color: gold;"></i>
+        <i class="gray" id="colorGray" style="background-color: gray;"></i>
+        <i class="pink" id="colorPink" style="background-color: pink;"></i>
+    </div>
+
+    <script src="demo.js"></script>
+
+    <script>
+        var map = document.querySelector("#map");
+        var map2 = document.querySelector("#map2");
+        var gogogo = document.querySelector("#start");
+        var stopMove = document.querySelector("#stop");
+        var score1 = document.querySelector("#score1");
+        var score2 = document.querySelector("#score2");
+        var endBox = document.querySelector("#endBox");
+        var rem = document.querySelector("#rem");
+        var norem = document.querySelector("#norem");
+        var username = document.querySelector("#username");
+        var rank = document.querySelector("#rank");
+        var colorSelect = document.querySelector("#colorSelect").children;
+
+        var game = new Game(map, gogogo, stopMove, score1, score2, endBox, rem, norem, username, rank, colorSelect);
+        game.Gogo();
+    </script>
+</body>
+
+</html>
